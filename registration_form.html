@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Registration</title>
   <style>
+    /* Add your CSS styles here */
     body {
       font-family: 'Arial', sans-serif;
       background-color: E1F8DC;
@@ -78,8 +79,27 @@
     button.btn:hover {
       background-color: #0056b3;
     }
+
+    .success-popup {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #7FFF00;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 9999;
+    }
+
+    .success-popup span {
+      margin-right: 10px;
+    }
     img{
-      width: 100%;
+      width: 150%;
     }
   </style>
 </head>
@@ -112,7 +132,7 @@
         </div>
 
         <div class="form-group">
-          <label for="phoneNumber">Phone Number:</label>
+          <label for="phoneNumber">Mobile Number:</label>
           <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
         </div>
 
@@ -132,25 +152,43 @@
   </div>
 
   <script>
-    function openRegistrationForm() {
-      window.open('registration_form.html', '_blank', 'width=400,height=600');
+    // Function to show popup message with green tick
+    function showSuccessMessage(message) {
+      const popup = document.createElement('div');
+      popup.className = 'success-popup';
+      popup.innerHTML = `<span>&#10004;</span>${message}`;
+
+      document.body.appendChild(popup);
+
+      setTimeout(() => {
+        popup.style.opacity = '1';
+      }, 100);
+
+      setTimeout(() => {
+        popup.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(popup);
+        }, 500);
+      }, 2000);
     }
 
-    function validateLoginForm() {
-      var username = document.getElementById("username").value;
+    // Function to validate registration form
+    function validateForm() {
+      var firstName = document.getElementById("firstName").value;
+      var lastName = document.getElementById("lastName").value;
+      var email = document.getElementById("email").value;
+      var dob = document.getElementById("dob").value;
+      var phoneNumber = document.getElementById("phoneNumber").value;
       var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirmPassword").value;
 
-      if (!username.trim()) {
-        alert("Username is required");
-        return false;
-      }
+      // Your form validation logic here
 
-      if (!password.trim()) {
-        alert("Password is required");
-        return false;
-      }
+      // Simulate successful registration
+      showSuccessMessage("Registration successful");
 
-      return true;
+      // Return false to prevent actual form submission
+      return false;
     }
   </script>
 </body>
