@@ -4,7 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Registration</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: E1F8DC;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .left-section {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .left-section img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .right-section {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="tel"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button.btn {
+      width: calc(100% - 20px);
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button.btn:hover {
+      background-color: #0056b3;
+    }
+
+    .success-popup {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #7FFF00;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 9999;
+    }
+
+    .success-popup span {
+      margin-right: 10px;
+    }
+
+  </style>
 </head>
 <body>
   <div class="container">
@@ -24,16 +119,48 @@
           <input type="password" id="password" name="password" required>
         </div>
 
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn" id="loginButton">Login</button>
       </form>
-      <p>Don't have an account? <a href="#" onclick="openRegistrationForm()">Create one</a></p>
+      <p>Don't have an account? <a href="#" id="openRegistrationForm">Create one</a></p>
     </div>
   </div>
 
   <script>
-    function openRegistrationForm() {
-      window.open('registration_form.html', '_blank', 'width=400,height=600');
+    // Function to show popup message with green tick
+    function showSuccessMessage(message) {
+      const popup = document.createElement('div');
+      popup.className = 'success-popup';
+      popup.innerHTML = `<span>&#10004;</span>${message}`;
+
+      document.body.appendChild(popup);
+
+      setTimeout(() => {
+        popup.style.opacity = '1';
+      }, 100);
+
+      setTimeout(() => {
+        popup.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(popup);
+        }, 500);
+      }, 2000);
     }
+
+    // Function to handle login form submission
+    document.getElementById("loginpage").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+      
+      // Simulate login successful message
+      showSuccessMessage('Login successful ✔');
+    });
+
+    // Function to open registration form
+    document.getElementById("openRegistrationForm").addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent the default link behavior
+
+      // Open registration form in a new window
+      window.open('registration_form.html', '_blank', 'width=400,height=600');
+    });
   </script>
 </body>
 </html>
